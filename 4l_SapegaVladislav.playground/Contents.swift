@@ -64,7 +64,7 @@ class Car {
     }
 }
 
-class truckCar: Car {
+class TruckCar: Car {
     
     var typeTruck: Body
     var maxVolume: Double
@@ -82,8 +82,11 @@ class truckCar: Car {
         case unloadTruck(Double)
     }
     
-    init(color: Color, yearOfManufacture: Int, maxVolume: Double, maxWeight: Double) {
+    init(brand: Brand, trunkVolume: Double, color: Color, productionYear: Int, typeTruck: Body, maxVolume: Double, cargo: Double) {
+        self.typeTruck = typeTruck
         self.maxVolume = maxVolume
+        self.cargo = cargo
+        super.init(brand: brand, trunkVolume: trunkVolume, color: color, productionYear: productionYear)
     }
     
     func action(_ action: ActionTruck) {
@@ -101,8 +104,12 @@ class truckCar: Car {
         }
     }
 }
+var truckCar1 = TruckCar(brand: .Chevrolet, trunkVolume: 100, color: .black, productionYear: 1999, typeTruck: .Dump, maxVolume: 200, cargo: 100)
+truckCar1.action(.changeEngineState)
+truckCar1.action(.loadTruck(10))
+truckCar1.action(.unloadTruck(20))
 
-class sportСar: Car {
+class SportСar: Car {
     
     enum typeFuel {
         case disel
@@ -115,23 +122,28 @@ class sportСar: Car {
     }
     
     var fuel: typeFuel
-    var transmissipon: ActionSportCar
+    var transmission: ActionSportCar
     
-    init(color: Color, productionYear: Int, price: Double) {
+    init(brand: Brand, trunkVolume: Double, color: Color, productionYear: Int, fuel: typeFuel, transmission: ActionSportCar) {
         self.fuel = fuel
-        super.init(brand: Brand, trunkVolume: Double, color: Color, productionYear: productionYear)
+        self.transmission = transmission
+        super.init(brand: brand, trunkVolume: trunkVolume, color: color, productionYear: productionYear)
     }
     
     func action (_ action: ActionSportCar){
         switch action {
         case .turboOff:
-            transmissipon = "Комфорт"
-            print(transmissipon)
+            print(transmission)
         case .turboOn:
-            transmissipon = "Турбо"
-            print(transmissipon)
+            print(transmission)
         }
     }
 }
+
+var sportCar1 = SportСar(brand: .BMW, trunkVolume: 0, color: .green, productionYear: 2019, fuel: .disel, transmission: .turboOn)
+sportCar1.action(.turboOff)
+sportCar1.action(.changeEngineState)
+sportCar1.action(.changeWindowsState)
+
 
 
